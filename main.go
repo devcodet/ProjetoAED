@@ -4,7 +4,6 @@ import "fmt"
 
 func main() {
 	path, err := askFile()
-
 	typeSort, err := askSort()
 
 	checkError(err)
@@ -20,7 +19,7 @@ func main() {
 	case MergeSort:
 		words = mergeSort(words)
 	default:
-		checkError(fmt.Errorf("tipo de ordenação inválido: %d", int(typeSort)))
+		checkError(fmt.Errorf("TIPO DE ORDENAÇÃO INVÁLIDO: %d", int(typeSort)))
 	}
 
 	printResult(words)
