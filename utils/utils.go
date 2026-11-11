@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"bufio"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func askFile() (string, error) {
+func AskFile() (string, error) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("CAMINHO DO FICHEIRO: ")
 	caminho, err := reader.ReadString('\n')
@@ -17,14 +17,14 @@ func askFile() (string, error) {
 	return strings.TrimSpace(caminho), nil
 }
 
-func checkError(err error) {
+func CheckError(err error) {
 	if err != nil {
 		fmt.Println("Erro:", err)
 		os.Exit(1)
 	}
 }
 
-func printResult(words []string) {
+func PrintResult(words []string) {
 	for i, word := range words {
 		fmt.Printf("%d: %s\n", i+1, word)
 	}

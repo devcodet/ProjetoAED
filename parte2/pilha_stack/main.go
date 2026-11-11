@@ -1,4 +1,4 @@
-package main_stack
+package main
 
 import (
 	"bufio"
@@ -9,25 +9,8 @@ import (
 	"unicode"
 )
 
-func (p *Pilha) Push(word string) {
-	p.topo = &Node{word: word, next: p.topo}
-}
-
-func (p *Pilha) Pop() (string, bool) {
-	if p.topo == nil {
-		return "", false
-	}
-	word := p.topo.word
-	p.topo = p.topo.next
-	return word, true
-}
-
-func (p *Pilha) IsEmpty() bool {
-	return p.topo == nil
-}
-
-// empilhawords separa as words da row (sem usar slices) e faz Push de cada uma.
-func empilhawords(row string, p *Pilha) {
+// stackWords separa as words da row (sem usar slices) e faz Push de cada uma.
+func stackWords(row string, p *Pilha) {
 	for {
 		row = strings.TrimLeftFunc(row, unicode.IsSpace)
 		if row == "" {
@@ -45,14 +28,14 @@ func empilhawords(row string, p *Pilha) {
 
 // writeParagraph esvazia a pilha, escrevendo as words numa só row.
 func writeParagraph(p *Pilha, out *bufio.Writer) {
-	primeira := true
+	first := true
 	for !p.IsEmpty() {
 		w, _ := p.Pop()
-		if !primeira {
+		if !first {
 			out.WriteString(" ")
 		}
 		out.WriteString(w)
-		primeira = false
+		first = false
 	}
 	out.WriteString("\n")
 }
@@ -70,14 +53,14 @@ func main() {
 	}
 	defer f.Close()
 
-	leitor := bufio.NewReader(f)
+	reader := bufio.NewReader(f)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
 
 	p := &Pilha{}
 
 	for {
-		row, err := leitor.ReadString('\n')
+		row, err := reader.ReadString('\n')
 
 		if strings.TrimSpace(row) == "" {
 			// row em branco: fim de parágrafo
@@ -86,7 +69,7 @@ func main() {
 				out.WriteString("\n") // mantém a separação entre parágrafos
 			}
 		} else {
-			empilhawords(row, p)
+			stackWords(row, p)
 		}
 
 		if err == io.EOF {

@@ -1,15 +1,9 @@
-package main
+package file
 
 import (
-	"bufio"
-	"os"
-	"strings"
 	"unicode"
 	"unicode/utf8"
 )
-
-const DEFAULT_BUFFER_SIZE = 64 * 1024    // 64 KB
-const MAX_BUFFER_SIZE = 10 * 1024 * 1024 // 10 MB
 
 func isLetter(r rune) bool {
 	return unicode.IsLetter(r)
@@ -19,7 +13,7 @@ func isApostrophe(r rune) bool {
 	return r == '\'' || r == '’'
 }
 
-func scanWords(data []byte, atEOF bool) (int, []byte, error) {
+func ScanWords(data []byte, atEOF bool) (int, []byte, error) {
 	start := 0
 
 	for start < len(data) {
@@ -78,41 +72,4 @@ func scanWords(data []byte, atEOF bool) (int, []byte, error) {
 	}
 
 	return i, data[start:i], nil
-}
-
-func readFile(path string) ([]string, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	var words []string
-	seen := make(map[string]struct{})
-
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 0, DEFAULT_BUFFER_SIZE), MAX_BUFFER_SIZE)
-	scanner.Split(scanWords)
-
-	for scanner.Scan() {
-		w := strings.ToLower(scanner.Text())
-
-		if _, exists := seen[w]; !exists {
-			seen[w] = struct{}{}
-			words = append(words, w)
-		}
-	}
-
-	if err := scanner.Err(); err != nil {
-		return nil, err
-	}
-	return words, nil
-}
-
-func writeFile(path string, words []string) error {
-	data := []byte(strings.Join(words, "\n"))
-	if err := os.WriteFile(path, data, 0644); err != nil {
-		checkError(err)
-	}
-	return nil
 }
