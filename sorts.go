@@ -41,7 +41,8 @@ func mergeSort(words []string) []string {
 
 func merge(left, right []string) []string {
 	result := make([]string, 0, len(left)+len(right))
-	i, j := 0, 0
+	i := 0
+	j := 0
 
 	for i < len(left) && j < len(right) {
 		if left[i] <= right[j] {
