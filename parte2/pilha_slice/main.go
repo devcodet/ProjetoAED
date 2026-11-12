@@ -1,78 +1,32 @@
 package pilha_slice
 
 import (
+	"ProjetoAED/parte2/operations"
 	"ProjetoAED/utils"
-	"bufio"
-	"io"
-	"os"
 	"strings"
-	"unicode"
 )
 
-func stackWords(row string, p *Pilha) {
-	for {
-		row = strings.TrimLeftFunc(row, unicode.IsSpace)
-		if row == "" {
-			return
-		}
-		i := strings.IndexFunc(row, unicode.IsSpace)
-		if i == -1 {
-			p.Push(row)
-			return
-		}
-		p.Push(row[:i])
-		row = row[i:]
-	}
-}
-
-func writeParagraph(p *Pilha, out *bufio.Writer) {
-	primeira := true
-	for !p.IsEmpty() {
-		w, _ := p.Pop()
-		if !primeira {
-			out.WriteString(" ")
-		}
-		out.WriteString(w)
-		primeira = false
-	}
-	out.WriteString("\n")
-}
-
 func main() {
-	path, err := utils.AskFile()
+	reader, writer := utils.GetFileData()
+	defer writer.Flush()
 
-	f, err := os.Open(path)
-	utils.CheckError(err)
+	var pilha operations.Pilha = &PilhaSlice{}
 
-	defer f.Close()
-
-	reader := bufio.NewReader(f)
-	out := bufio.NewWriter(os.Stdout)
-	defer out.Flush()
-
-	p := &Pilha{}
-
-	for {
-		row, err := reader.ReadString('\n')
+	for reader.Scan() {
+		row := reader.Text()
 
 		if strings.TrimSpace(row) == "" {
-			if !p.IsEmpty() {
-				writeParagraph(p, out)
+			if !pilha.IsEmpty() {
+				operations.WriteParagraph(pilha, writer)
 			}
-			if row != "" {
-				out.WriteString("\n")
-			}
+			writer.WriteString("\n")
 		} else {
-			stackWords(row, p)
+			operations.StackWords(row, pilha)
 		}
-
-		if err == io.EOF {
-			break
-		}
-		utils.CheckError(err)
 	}
+	utils.CheckError(reader.Err())
 
-	if !p.IsEmpty() {
-		writeParagraph(p, out)
+	if !pilha.IsEmpty() {
+		operations.WriteParagraph(pilha, writer)
 	}
 }

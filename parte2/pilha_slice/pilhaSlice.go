@@ -1,14 +1,14 @@
 package pilha_slice
 
-type Pilha struct {
+type PilhaSlice struct {
 	items []string
 }
 
-func (p *Pilha) Push(word string) {
+func (p *PilhaSlice) Push(word string) {
 	p.items = append(p.items, word)
 }
 
-func (p *Pilha) Pop() (string, bool) {
+func (p *PilhaSlice) Pop() (string, bool) {
 	if len(p.items) == 0 {
 		return "", false
 	}
@@ -18,6 +18,6 @@ func (p *Pilha) Pop() (string, bool) {
 	return word, true
 }
 
-func (p *Pilha) IsEmpty() bool {
+func (p *PilhaSlice) IsEmpty() bool {
 	return len(p.items) == 0
 }

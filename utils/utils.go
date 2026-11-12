@@ -25,7 +25,6 @@ func GetFileData() (*bufio.Scanner, *bufio.Writer) {
 	reader.Buffer(make([]byte, MIN_LINE_BUFFER_SIZE), MAX_LINE_BUFFER_SIZE)
 
 	writer := bufio.NewWriter(os.Stdout)
-	defer writer.Flush()
 
 	return reader, writer
 }
