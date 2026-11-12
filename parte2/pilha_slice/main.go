@@ -1,4 +1,4 @@
-package main
+package pilha_slice
 
 import (
 	"ProjetoAED/utils"

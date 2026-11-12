@@ -66,7 +66,6 @@ func ScanWords(data []byte, atEOF bool) (int, []byte, error) {
 		break
 	}
 
-	// palavra pode continuar no próximo bloco
 	if i >= len(data) && !atEOF {
 		return start, nil, nil
 	}

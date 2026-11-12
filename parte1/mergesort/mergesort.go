@@ -5,9 +5,9 @@ func mergeSort(words []string) []string {
 		return words
 	}
 
-	meio := len(words) / 2
-	left := mergeSort(words[:meio])
-	right := mergeSort(words[meio:])
+	half := len(words) / 2
+	left := mergeSort(words[:half])
+	right := mergeSort(words[half:])
 
 	return merge(left, right)
 }
