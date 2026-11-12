@@ -21,3 +21,8 @@ func (p *PilhaSlice) Pop() (string, bool) {
 func (p *PilhaSlice) IsEmpty() bool {
 	return len(p.items) == 0
 }
+
+func (p *PilhaSlice) Empty() bool {
+	p.items = nil
+	return true
+}

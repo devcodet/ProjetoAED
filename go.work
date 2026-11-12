@@ -9,4 +9,5 @@ use (
   ./parte2/pilha_list
   ./parte2/pilha_slice
   ./parte2/operations
+  ./parte2/parte2_benchmark_tests
 )

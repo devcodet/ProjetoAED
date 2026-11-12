@@ -10,9 +10,10 @@ type Pilha interface {
 	Push(word string)
 	Pop() (string, bool)
 	IsEmpty() bool
+	Empty() bool
 }
 
-func StackWords(row string, p Pilha) {
+func StackWords(pilha Pilha, row string) {
 	for {
 		row = strings.TrimLeftFunc(row, unicode.IsSpace)
 		if row == "" {
@@ -20,23 +21,23 @@ func StackWords(row string, p Pilha) {
 		}
 		i := strings.IndexFunc(row, unicode.IsSpace)
 		if i == -1 {
-			p.Push(row)
+			pilha.Push(row)
 			return
 		}
-		p.Push(row[:i])
+		pilha.Push(row[:i])
 		row = row[i:]
 	}
 }
 
-func WriteParagraph(p Pilha, out *bufio.Writer) {
+func WriteParagraph(pilha Pilha, writer *bufio.Writer) {
 	first := true
-	for !p.IsEmpty() {
-		w, _ := p.Pop()
+	for !pilha.IsEmpty() {
+		w, _ := pilha.Pop()
 		if !first {
-			out.WriteString(" ")
+			writer.WriteString(" ")
 		}
-		out.WriteString(w)
+		writer.WriteString(w)
 		first = false
 	}
-	out.WriteString("\n")
+	writer.WriteString("\n")
 }

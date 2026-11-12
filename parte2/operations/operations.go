@@ -15,7 +15,7 @@ func StandardOperation(pilha Pilha, reader *bufio.Scanner, writer *bufio.Writer)
 				WriteParagraph(pilha, writer)
 			}
 		} else {
-			StackWords(row, pilha)
+			StackWords(pilha, row)
 		}
 
 		utils.CheckError(reader.Err())

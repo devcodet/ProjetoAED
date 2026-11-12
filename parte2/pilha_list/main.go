@@ -9,6 +9,6 @@ func main() {
 	reader, writer := utils.GetFileData()
 	defer writer.Flush()
 
-	var pilha operations.Pilha = &PilhaStack{}
+	var pilha operations.Pilha = &PilhaList{}
 	operations.StandardOperation(pilha, reader, writer)
 }

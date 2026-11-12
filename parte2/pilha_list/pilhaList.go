@@ -5,15 +5,15 @@ type Node struct {
 	nextNode *Node
 }
 
-type PilhaStack struct {
+type PilhaList struct {
 	topNode *Node
 }
 
-func (p *PilhaStack) Push(word string) {
+func (p *PilhaList) Push(word string) {
 	p.topNode = &Node{word: word, nextNode: p.topNode}
 }
 
-func (p *PilhaStack) Pop() (string, bool) {
+func (p *PilhaList) Pop() (string, bool) {
 	if p.topNode == nil {
 		return "", false
 	}
@@ -22,6 +22,11 @@ func (p *PilhaStack) Pop() (string, bool) {
 	return word, true
 }
 
-func (p *PilhaStack) IsEmpty() bool {
+func (p *PilhaList) IsEmpty() bool {
 	return p.topNode == nil
+}
+
+func (p *PilhaList) Empty() bool {
+	p.topNode = nil
+	return true
 }
