@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"ProjetoAED/utils"
 	"bufio"
 	"strings"
+	"utils"
 )
 
 func StandardOperation(pilha Pilha, reader *bufio.Scanner, writer *bufio.Writer) {

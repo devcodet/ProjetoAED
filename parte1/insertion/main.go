@@ -1,7 +1,7 @@
 package insertion
 
 import (
-	"ProjetoAED/utils"
+	"utils"
 )
 
 func main() {

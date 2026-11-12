@@ -9,7 +9,7 @@ func (p *PilhaSlice) Push(word string) {
 }
 
 func (p *PilhaSlice) Pop() (string, bool) {
-	if len(p.items) == 0 {
+	if p.IsEmpty() {
 		return "", false
 	}
 	last := len(p.items) - 1

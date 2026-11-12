@@ -1,0 +1,11 @@
+go 1.27.1
+
+use (
+	./utils
+	./parte1/selection
+	./parte1/insertion
+  ./parte1/mergesort
+  ./parte2/pilha_list
+  ./parte2/pilha_slice
+  ./parte2/operations
+)

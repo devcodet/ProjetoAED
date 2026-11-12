@@ -1,8 +1,8 @@
-package pilha_stack
+package pilha_list
 
 import (
-	"ProjetoAED/parte2/operations"
-	"ProjetoAED/utils"
+	"operations"
+	"utils"
 )
 
 func main() {

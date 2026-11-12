@@ -1,7 +1,7 @@
 package mergesort
 
 import (
-	"ProjetoAED/utils"
+	"utils"
 )
 
 func main() {

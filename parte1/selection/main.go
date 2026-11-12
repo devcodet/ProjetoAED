@@ -1,7 +1,7 @@
 package selection
 
 import (
-	"ProjetoAED/utils"
+	"utils"
 )
 
 func main() {

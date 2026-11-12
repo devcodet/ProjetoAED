@@ -1,8 +1,8 @@
 package pilha_slice
 
 import (
-	"ProjetoAED/parte2/operations"
-	"ProjetoAED/utils"
+	"operations"
+	"utils"
 )
 
 func main() {
