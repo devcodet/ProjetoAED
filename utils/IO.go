@@ -8,7 +8,7 @@ import (
 const DEFAULT_BUFFER_SIZE = 64 * 1024    // 64 KB
 const MAX_BUFFER_SIZE = 10 * 1024 * 1024 // 10 MB
 
-func ReadFile(scanner *bufio.Scanner, isLower bool, split bufio.SplitFunc) ([]string, error) {
+func ReadFile(scanner *bufio.Scanner, split bufio.SplitFunc, maxWords int) ([]string, error) {
 	var words []string
 	seen := make(map[string]struct{})
 
@@ -16,13 +16,15 @@ func ReadFile(scanner *bufio.Scanner, isLower bool, split bufio.SplitFunc) ([]st
 	scanner.Split(split)
 
 	for scanner.Scan() {
-		w := scanner.Text()
-		if isLower {
-			w = strings.ToLower(w)
-		}
+		word := scanner.Text()
+		w := strings.ToLower(word)
 
 		if _, exists := seen[w]; !exists {
 			seen[w] = struct{}{}
+
+			if maxWords > 0 && len(words) >= maxWords {
+				break
+			}
 			words = append(words, w)
 		}
 	}

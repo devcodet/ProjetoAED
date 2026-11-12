@@ -18,6 +18,18 @@ func GetFileData() (*bufio.Scanner, *bufio.Writer) {
 	return reader, writer
 }
 
+func GetFileDataFromFile(filePath string) (*bufio.Scanner, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	reader := bufio.NewScanner(file)
+	reader.Buffer(make([]byte, MIN_LINE_BUFFER_SIZE), MAX_LINE_BUFFER_SIZE)
+
+	return reader, nil
+}
+
 func CheckError(err error) {
 	if err != nil {
 		fmt.Println("Erro:", err)

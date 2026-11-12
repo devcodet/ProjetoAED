@@ -5,6 +5,7 @@ use (
 	./parte1/selection
 	./parte1/insertion
   ./parte1/mergesort
+  ./parte1/parte1_benchmark_tests
   ./parte2/pilha_list
   ./parte2/pilha_slice
   ./parte2/operations
