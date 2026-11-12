@@ -1,26 +1,17 @@
 package utils
 
 import (
-	"ProjetoAED/utils"
 	"bufio"
-	"os"
 	"strings"
 )
 
 const DEFAULT_BUFFER_SIZE = 64 * 1024    // 64 KB
 const MAX_BUFFER_SIZE = 10 * 1024 * 1024 // 10 MB
 
-func ReadFile(path string, isLower bool, split bufio.SplitFunc) ([]string, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
+func ReadFile(scanner *bufio.Scanner, isLower bool, split bufio.SplitFunc) ([]string, error) {
 	var words []string
 	seen := make(map[string]struct{})
 
-	scanner := bufio.NewScanner(f)
 	scanner.Buffer(make([]byte, 0, DEFAULT_BUFFER_SIZE), MAX_BUFFER_SIZE)
 	scanner.Split(split)
 
@@ -42,10 +33,10 @@ func ReadFile(path string, isLower bool, split bufio.SplitFunc) ([]string, error
 	return words, nil
 }
 
-func WriteFile(path string, words []string) error {
+func WriteFile(words []string, writer *bufio.Writer) error {
 	data := []byte(strings.Join(words, "\n"))
-	if err := os.WriteFile(path, data, 0644); err != nil {
-		utils.CheckError(err)
+	if _, err := writer.Write(data); err != nil {
+		return err
 	}
 	return nil
 }
