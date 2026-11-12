@@ -4,21 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 )
 
 const MIN_LINE_BUFFER_SIZE = 1024 * 1024      // 1 MB
 const MAX_LINE_BUFFER_SIZE = 10 * 1024 * 1024 // 10 MB
-
-func AskFile() (string, error) {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("CAMINHO DO FICHEIRO: ")
-	path, err := reader.ReadString('\n')
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(path), nil
-}
 
 func GetFileData() (*bufio.Scanner, *bufio.Writer) {
 	reader := bufio.NewScanner(os.Stdin)
