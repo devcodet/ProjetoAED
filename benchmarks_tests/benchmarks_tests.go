@@ -12,50 +12,61 @@ func BenchmarkN(b *testing.B, inputFile string, sortFunc func([]string)) {
 	reader, err := utils.GetFileDataFromFile(inputFile)
 	utils.CheckError(err)
 
-	tests := []int{10, 100, 1000, 10000, 100000, 1000000, 10000000, 0}
-	testing.Benchmark(func(b *testing.B) {
-		for _, n := range tests {
-			words, err := utils.ReadFile(reader, utils.ScanWords, n)
-			utils.CheckError(err)
-
-			b.ResetTimer()
-
-			b.Run(fmt.Sprintf("N=%d", n), func(b *testing.B) {
-				b.StartTimer()
-				sortFunc(words)
-				b.StopTimer()
-				fmt.Printf("N=%d, Time=%v\n", n, b.Elapsed())
-			})
+	words, err := utils.ReadFile(reader, utils.ScanWords)
+	tests := []int{10, 100, 1000, 10000, 0}
+	for _, n := range tests {
+		size := n
+		if size == 0 || size > len(words) {
+			size = len(words)
 		}
-	})
+
+		new_words := make([]string, n)
+		copy(new_words, words[:size])
+		utils.CheckError(err)
+
+		b.ResetTimer()
+
+		b.Run(fmt.Sprintf("N=%d", n), func(b *testing.B) {
+			b.StartTimer()
+			sortFunc(new_words)
+			b.StopTimer()
+			fmt.Printf("N=%d, Time=%v\n", n, b.Elapsed())
+		})
+	}
 }
 
 func BenchmarkPilhaPushPop(b *testing.B, pilha utils.Pilha, inputFile string) {
 	reader, err := utils.GetFileDataFromFile(inputFile)
 	utils.CheckError(err)
 
-	tests := []int{10, 100, 1000, 10000, 100000, 1000000, 10000000, 0}
-	testing.Benchmark(func(b *testing.B) {
-		for _, n := range tests {
-			words, err := utils.ReadFile(reader, utils.ScanWords, n)
-			utils.CheckError(err)
-
-			b.ReportAllocs()
-			b.ResetTimer()
-
-			b.Run(fmt.Sprintf("N=%d", n), func(b *testing.B) {
-				b.StartTimer()
-				for _, word := range words {
-					pilha.Push(word)
-				}
-				for !pilha.IsEmpty() {
-					pilha.Pop()
-				}
-				b.StopTimer()
-				fmt.Printf("N=%d, Time=%v\n", n, b.Elapsed())
-			})
+	words, err := utils.ReadFile(reader, utils.ScanWords)
+	tests := []int{10, 100, 1000, 10000, 100000, 0}
+	for _, n := range tests {
+		size := n
+		if size == 0 || size > len(words) {
+			size = len(words)
 		}
-	})
+
+		new_words := make([]string, n)
+		copy(new_words, words[:size])
+
+		utils.CheckError(err)
+
+		b.ReportAllocs()
+		b.ResetTimer()
+
+		b.Run(fmt.Sprintf("N=%d", n), func(b *testing.B) {
+			b.StartTimer()
+			for _, word := range new_words {
+				pilha.Push(word)
+			}
+			for !pilha.IsEmpty() {
+				pilha.Pop()
+			}
+			b.StopTimer()
+			fmt.Printf("N=%d, Time=%v\n", n, b.Elapsed())
+		})
+	}
 }
 
 func BenchmarkPilhaStandardOperation(b *testing.B, pilha utils.Pilha, inputFile string) {

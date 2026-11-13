@@ -6,13 +6,13 @@ import (
 	"strings"
 )
 
-const DEFAULT_BUFFER_SIZE = 64 * 1024    // 64 KB
-const MAX_BUFFER_SIZE = 10 * 1024 * 1024 // 10 MB
+const DEFAULT_BUFFER_SIZE = 64 * 1024     // 64 KB
+const MAX_BUFFER_SIZE = 100 * 1024 * 1024 // 100 MB
 
-const MIN_LINE_BUFFER_SIZE = 1024 * 1024      // 1 MB
-const MAX_LINE_BUFFER_SIZE = 10 * 1024 * 1024 // 10 MB
+const MIN_LINE_BUFFER_SIZE = 1024 * 1024       // 1 MB
+const MAX_LINE_BUFFER_SIZE = 100 * 1024 * 1024 // 100 MB
 
-func ReadFile(scanner *bufio.Scanner, split bufio.SplitFunc, maxWords int) ([]string, error) {
+func ReadFile(scanner *bufio.Scanner, split bufio.SplitFunc) ([]string, error) {
 	var words []string
 	seen := make(map[string]struct{})
 
@@ -26,9 +26,6 @@ func ReadFile(scanner *bufio.Scanner, split bufio.SplitFunc, maxWords int) ([]st
 		if _, exists := seen[w]; !exists {
 			seen[w] = struct{}{}
 
-			if maxWords > 0 && len(words) >= maxWords {
-				break
-			}
 			words = append(words, w)
 		}
 	}
@@ -54,7 +51,6 @@ func GetFileDataFromFile(filePath string) (*bufio.Scanner, error) {
 	}
 
 	reader := bufio.NewScanner(file)
-	reader.Buffer(make([]byte, MIN_LINE_BUFFER_SIZE), MAX_LINE_BUFFER_SIZE)
 
 	return reader, nil
 }

@@ -8,7 +8,7 @@ func main() {
 	reader, writer := utils.GetFileData()
 	defer writer.Flush()
 
-	words, err := utils.ReadFile(reader, utils.ScanWords, 0)
+	words, err := utils.ReadFile(reader, utils.ScanWords)
 	utils.CheckError(err)
 
 	selectionSort(words)
