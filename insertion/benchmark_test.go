@@ -1,4 +1,4 @@
-package insertion
+package main
 
 import (
 	"benchmarks_tests"

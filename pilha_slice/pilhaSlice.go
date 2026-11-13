@@ -1,4 +1,4 @@
-package pilha_slice
+package main
 
 type PilhaSlice struct {
 	items []string

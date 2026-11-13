@@ -1,4 +1,4 @@
-package selection
+package main
 
 import (
 	"benchmarks_tests"

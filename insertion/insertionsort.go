@@ -1,4 +1,4 @@
-package insertion
+package main
 
 func insertionSort(words []string) {
 	for i := 1; i < len(words); i++ {

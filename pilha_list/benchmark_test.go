@@ -1,4 +1,4 @@
-package pilha_list
+package main
 
 import (
 	"benchmarks_tests"

@@ -1,4 +1,4 @@
-package mergesort
+package main
 
 func mergeSort(words []string) []string {
 	if len(words) <= 1 {

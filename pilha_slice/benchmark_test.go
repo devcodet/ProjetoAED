@@ -1,4 +1,4 @@
-package pilha_slice
+package main
 
 import (
 	"benchmarks_tests"

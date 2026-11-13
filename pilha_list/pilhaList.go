@@ -1,4 +1,4 @@
-package pilha_list
+package main
 
 type Node struct {
 	word     string

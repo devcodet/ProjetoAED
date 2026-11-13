@@ -1,4 +1,4 @@
-package selection
+package main
 
 func selectionSort(words []string) {
 	for i := 0; i < len(words)-1; i++ {
