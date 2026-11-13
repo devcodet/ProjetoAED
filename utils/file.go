@@ -81,24 +81,24 @@ func StackWords(pilha Pilha, row string) {
 		if row == "" {
 			return
 		}
-		i := strings.IndexFunc(row, unicode.IsSpace)
-		if i == -1 {
+		index := strings.IndexFunc(row, unicode.IsSpace)
+		if index == -1 {
 			pilha.Push(row)
 			return
 		}
-		pilha.Push(row[:i])
-		row = row[i:]
+		pilha.Push(row[:index])
+		row = row[index:]
 	}
 }
 
 func WriteParagraph(pilha Pilha, writer *bufio.Writer) {
 	first := true
 	for !pilha.IsEmpty() {
-		w, _ := pilha.Pop()
+		word, _ := pilha.Pop()
 		if !first {
 			writer.WriteString(" ")
 		}
-		writer.WriteString(w)
+		writer.WriteString(word)
 		first = false
 	}
 	writer.WriteString("\n")
