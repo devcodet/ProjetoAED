@@ -1,10 +1,24 @@
-package operations
+package utils
 
 import (
 	"bufio"
+	"fmt"
+	"os"
 	"strings"
-	"utils"
 )
+
+func CheckError(err error) {
+	if err != nil {
+		fmt.Println("Erro:", err)
+		os.Exit(1)
+	}
+}
+
+func PrintResult(words []string) {
+	for i, word := range words {
+		fmt.Printf("%d: %s\n", i+1, word)
+	}
+}
 
 func StandardOperation(pilha Pilha, reader *bufio.Scanner, writer *bufio.Writer) {
 	for reader.Scan() {
@@ -18,7 +32,7 @@ func StandardOperation(pilha Pilha, reader *bufio.Scanner, writer *bufio.Writer)
 			StackWords(pilha, row)
 		}
 
-		utils.CheckError(reader.Err())
+		CheckError(reader.Err())
 	}
 
 	if !pilha.IsEmpty() {

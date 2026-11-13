@@ -1,13 +1,11 @@
 go 1.27.1
 
 use (
+  ./benchmarks_tests
 	./utils
-	./parte1/selection
-	./parte1/insertion
-  ./parte1/mergesort
-  ./parte1/parte1_benchmark_tests
-  ./parte2/pilha_list
-  ./parte2/pilha_slice
-  ./parte2/operations
-  ./parte2/parte2_benchmark_tests
+	./selection
+	./insertion
+  ./mergesort
+  ./pilha_list
+  ./pilha_slice
 )
