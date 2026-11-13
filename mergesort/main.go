@@ -11,7 +11,7 @@ func main() {
 	words, err := utils.ReadFile(reader, utils.ScanWords, 0)
 	utils.CheckError(err)
 
-	mergeSort(words)
+	words = mergeSort(words)
 
 	utils.WriteFile(words, writer)
 	utils.CheckError(err)
